@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=themepark
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d themepark"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  goapp:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - THEMEPARK_DB_CONNECTION_STRING=postgres://admin:admin@postgres:5432/themepark?sslmode=disable
+      - THEMEPARK_LISTENING_PORT=8080
+    restart: on-failure
+    networks:
+      - mynetwork
+    depends_on:
+      postgres:
+        condition: service_healthy
+        restart: true
+        
+volumes:
+  db_data:
+
+networks:
+  mynetwork:
+    driver: bridge

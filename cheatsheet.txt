@@ -1,0 +1,46 @@
+### Create database
+```sql
+CREATE DATABASE themepark;
+```
+
+### Delete database
+```sql
+DROP DATABASE themepark;
+```
+
+### List databases
+```sql
+\l
+```
+
+### Connect to database
+```sql
+\c themepark
+```
+
+### curls
+```
+## Login and get a token
+curl -v -X POST localhost:8080/pub/login \
+    -H 'Content-Type: application/json' \
+    -d '{"email":"solid.snake@konami.jp", "password":"snake1234"}'
+
+## Get all categories
+curl -v localhost:8080/pub/getCategories
+
+## Get an user
+curl localhost:8080/priv/users/1 \
+   -H "Accept: application/json" \
+   -H "Authorization: Bearer b6188a1e-0947-47b1-bc0e-560d7a2b23db"
+
+## Create an user
+curl -v -X POST localhost:8080/pub/register \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Laura", "email":"laura.corral@konami.jp", "password":"maik1234", "birth_date":"2021-02-18T21:54:42.123Z", "city":"Madrid", "categories":[1,2], "profile_picture":"https://lol.com/lol", "description":"Im a chill girl"}'
+
+## Update user
+curl -v -X PATCH localhost:8080/priv/users/12 \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Laura Corral", "email":"lauracorrallopez@gmail.com","birth_date":"1991-10-31T21:54:42.123Z", "city":"Madrid", "categories":[1,2,3,4], "profile_picture":"https://lol.com/norl", "description":"Im not a chill girl anymore"}' \
+  -H "Authorization: Bearer b6188a1e-0947-47b1-bc0e-560d7a2b23db"
+```
