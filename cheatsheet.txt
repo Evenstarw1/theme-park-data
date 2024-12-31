@@ -23,7 +23,11 @@ DROP DATABASE themepark;
 ## Login and get a token
 curl -v -X POST localhost:8080/pub/login \
     -H 'Content-Type: application/json' \
-    -d '{"email":"solid.snake@konami.jp", "password":"snake1234"}'
+    -d '{"email":"admin@parkfinder.com", "password":"snake1234"}'
+
+curl -v -X POST localhost:8080/pub/login \
+    -H 'Content-Type: application/json' \
+    -d '{"email":"meryl.silverburgh@konami.jp", "password":"meryl1234"}'
 
 ## Get all categories
 curl -v localhost:8080/pub/getCategories
@@ -31,16 +35,60 @@ curl -v localhost:8080/pub/getCategories
 ## Get an user
 curl localhost:8080/priv/users/1 \
    -H "Accept: application/json" \
-   -H "Authorization: Bearer b6188a1e-0947-47b1-bc0e-560d7a2b23db"
+   -H "Authorization: Bearer 533db9d9-a62d-4873-ac55-1baf8c523644"
 
 ## Create an user
 curl -v -X POST localhost:8080/pub/register \
   -H 'Content-Type: application/json' \
-  -d '{"name":"Laura", "email":"laura.corral@konami.jp", "password":"maik1234", "birth_date":"2021-02-18T21:54:42.123Z", "city":"Madrid", "categories":[1,2], "profile_picture":"https://lol.com/lol", "description":"Im a chill girl"}'
+  -d '{"name":"Laura", "email":"laura@prueba.com", "password":"prueba1234", "birth_date":"2021-02-18T21:54:42.123Z", "city":"Madrid", "categories":[1,2], "profile_picture":"https://lol.com/lol", "description":"Im a chill girl"}'
 
 ## Update user
 curl -v -X PATCH localhost:8080/priv/users/12 \
   -H 'Content-Type: application/json' \
-  -d '{"name":"Laura Corral", "email":"lauracorrallopez@gmail.com","birth_date":"1991-10-31T21:54:42.123Z", "city":"Madrid", "categories":[1,2,3,4], "profile_picture":"https://lol.com/norl", "description":"Im not a chill girl anymore"}' \
+  -d '{"name":"Laura C", "email":"laura@prueba.com","birth_date":"1991-10-31T21:54:42.123Z", "city":"Alcachofas", "categories":[1,2,3,4], "profile_picture":"https://lol.com/norl", "description":"Im not a chill girl anymore"}' \
   -H "Authorization: Bearer b6188a1e-0947-47b1-bc0e-560d7a2b23db"
 ```
+
+## Get all parks
+curl localhost:8080/priv/parks \
+   -H "Accept: application/json" \
+   -H "Authorization: Bearer a3c6aa6b-66a4-4247-a523-0ccc12831e8f"
+
+## Get park detail
+curl localhost:8080/priv/park/1 \
+   -H "Accept: application/json" \
+   -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Add park comments
+curl -v -X POST localhost:8080/priv/park/comments \
+    -H 'Content-Type: application/json' \
+    -d '{"themepark_id":1, "comment":"Madrid es la ciudad perfecta para este parque"}' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Add new theme park (only admins)
+curl -v -X POST localhost:8080/priv/parks \
+    -H 'Content-Type: application/json' \
+    -d '{"name":"Isla Mágica","description":"Parque de atracciones en Sevilla, el infierno en la tierra","picture":"https://mudakids.com/wp-content/uploads/isla-magica.jpg","latitude":37.4066039,"longitude":-6.0020551,"categories":[{"id":1}, {"id":2}]}' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Delete themepark (only admins)
+curl -v -X DELETE localhost:8080/priv/park/7 \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Update themepark
+curl -v -X PATCH localhost:8080/priv/park/7 \
+    -H 'Content-Type: application/json' \
+    -d '{"name":"Isla Mágica","description":"Parque de atracciones en Sevilla","picture":"https://mudakids.com/wp-content/uploads/isla-magica.jpg","latitude":37.4066039,"longitude":-6.0020551,"categories":[{"id":3}, {"id":4}]}' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Add categories
+curl -v -X POST localhost:8080/priv/categories \
+    -H 'Content-Type: application/json' \
+    -d '{"name":"Only Rollercoasters"}' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"
+
+## Get all users
+curl -v -X GET localhost:8080/priv/users \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer cf30bc5e-ee5b-4213-bf46-8a724c511aca"

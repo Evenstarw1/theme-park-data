@@ -48,6 +48,22 @@ func main() {
 		Methods(http.MethodGet)
 	priv.HandleFunc("/users/{id:[0-9]+}", handlers.UpdateUser).
 		Methods(http.MethodPatch)
+	priv.HandleFunc("/parks", handlers.GetParks).
+		Methods(http.MethodGet)
+	priv.HandleFunc("/parks", handlers.InsertThemePark).
+		Methods(http.MethodPost)
+	priv.HandleFunc("/park/{id:[0-9]+}", handlers.GetParkDetails).
+		Methods(http.MethodGet)
+	priv.HandleFunc("/park/{id:[0-9]+}", handlers.DeleteThemePark).
+		Methods(http.MethodDelete)
+	priv.HandleFunc("/park/{id:[0-9]+}", handlers.UpdateThemePark).
+		Methods(http.MethodPatch)
+	priv.HandleFunc("/park/comments", handlers.InsertParkComment).
+		Methods(http.MethodPost)
+	priv.HandleFunc("/categories", handlers.AddCategory).
+		Methods(http.MethodPost)
+	priv.HandleFunc("/users", handlers.GetAllUsers).
+		Methods(http.MethodGet)
 
 	http.ListenAndServe(fmt.Sprintf(":%d", config.listeningPort), router)
 }
@@ -63,7 +79,7 @@ func getEnv() Config {
 	if portStr == "" {
 		config.listeningPort = 8080
 	} else {
-		config.listeningPort, _ = strconv.Atoi(portStr) // Not so production ready lol
+		config.listeningPort, _ = strconv.Atoi(portStr)
 	}
 
 	return config
