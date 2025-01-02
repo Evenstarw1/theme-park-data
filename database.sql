@@ -109,9 +109,9 @@ VALUES
 
 INSERT INTO users (id, name, email, password, access_level, birth_date, city, profile_picture, description)
 VALUES
-    (1, 'Solid Snake', 'solid.snake@konami.jp', '178c15232b8899b70ebc1c0e9eee1de80cd5031501a9d9dc1ed31f8077f8313c', 1, '1991-10-31', 'Alaska City', 'http://www.hardcoregaming101.net/wp-content/uploads/2023/05/metal-gear-solid-3-146-1536x864.jpg', 'I love rollercoasters lol'), --password is snake1234
-    (2, 'Revolver Occelot', 'revolver.occelote@konami.jp', 'ea5e443277359401ae943262d5d99c51743e2b2093b5c58340e859ce5809618a', 2, '1966-02-21', 'Moscow', 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3af0e904-f03f-42e0-af2f-ae044fefa370/original=true,quality=90/dVykdLx0pwlQlCo7_WzFs.jpeg', 'I hate snakes'), --password is ocelote1234
-    (3, 'Meryl Silverburgh', 'meryl.silverburgh@konami.jp', '85f7280ad47598661a220198e63d91836ecb5c5780eab94707e92bf299572b49', 2, '1994-09-1', 'Pariss', 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/de899f50-7d1c-4460-bfa8-2dca60b05b2a/width=450/00372-1034797549.jpeg', 'Im not a rokie!'); -- password is meryl1234
+    (1, 'Admin', 'admin@parkfinder.com', '178c15232b8899b70ebc1c0e9eee1de80cd5031501a9d9dc1ed31f8077f8313c', 1, '1991-10-31', 'Alaska City', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa7XyNBEPCmS9ExVaSd7c3tyLVYey536a3Bw&s', 'Me gustan los parques de atraciones y las montañas rusas!!'), --password is snake1234
+    (2, 'Revolver Occelot', 'revolver.occelote@konami.jp', 'ea5e443277359401ae943262d5d99c51743e2b2093b5c58340e859ce5809618a', 2, '1966-02-21', 'Moscow', 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3af0e904-f03f-42e0-af2f-ae044fefa370/original=true,quality=90/dVykdLx0pwlQlCo7_WzFs.jpeg', 'Buscando parques familiares'), --password is ocelote1234
+    (3, 'Meryl Silverburgh', 'meryl.silverburgh@konami.jp', '85f7280ad47598661a220198e63d91836ecb5c5780eab94707e92bf299572b49', 2, '1994-09-1', 'Paris', 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/de899f50-7d1c-4460-bfa8-2dca60b05b2a/width=450/00372-1034797549.jpeg', 'Hola!!! '); -- password is meryl1234
 
 
 INSERT INTO users_categories (id, user_id, category_id)

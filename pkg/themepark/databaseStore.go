@@ -274,10 +274,35 @@ func (d *DatabaseStore) GetAllThemeParks() ([]ThemePark, error) {
 		themepark := ThemePark{}
 		err := rows.Scan(&themepark.Id, &themepark.Name, &themepark.Picture)
 		if err != nil {
+			rows.Close()
 			return nil, err
 		}
 
 		themeparks = append(themeparks, themepark)
+	}
+
+	rows.Close()
+
+	for i, themepark := range themeparks {
+		// Get categories for user
+		var parkCategories []Category
+		rows, _ := d.conn.Query(context.Background(),
+			"select c.id, c.name, c.created from themeparks_categories tc inner join categories c on tc.category_id = c.id where tc.themepark_id = $1", themepark.Id)
+
+		for rows.Next() {
+			parkCategory := Category{}
+			err := rows.Scan(&parkCategory.Id, &parkCategory.Name, &parkCategory.Created)
+			if err != nil {
+				rows.Close()
+				return nil, err
+			}
+
+			parkCategories = append(parkCategories, parkCategory)
+		}
+
+		themeparks[i].Categories = parkCategories
+
+		rows.Close()
 	}
 
 	return themeparks, nil

@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
-	"github.com/evenstarw1/theme-park-data/pkg/themepark"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
+	"github.com/gorilla/mux"
+	"github.com/evenstarw1/theme-park-data/pkg/themepark"
 )
 
 const (
-	envDbConnectionString = "THEMEPARK_DB_CONNECTION_STRING"
+	envDbConnectionString = "https://amsmpjefzegchbqafouw.supabase.co"
 	envListeningPort      = "THEMEPARK_LISTENING_PORT"
 )
 
